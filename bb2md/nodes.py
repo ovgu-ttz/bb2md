@@ -111,6 +111,7 @@ class LinkNode(BaseNode):
     def url(self):
         if len(self._args) >= 1:
             request = requests.get(self._args[0])
+            print("linkstatus : ", request.status_code)
             return request.status_code < 400 or request.status_code == 401 and self._args[0] or None
 
     def markdown(self):
