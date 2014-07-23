@@ -6,6 +6,7 @@
 from collections import defaultdict
 import re
 from math import ceil
+import requests
 
 __author__ = 'Martin Martimeo <martin@martimeo.de>'
 __date__ = '02.07.14 - 17:04'
@@ -109,7 +110,8 @@ class LinkNode(BaseNode):
     @property
     def url(self):
         if len(self._args) >= 1:
-            return self._args[0]
+            request = requests.get(self._args[0])
+            return request.status_code < 400 or request.status_code == 401 and self._args[0] or None
 
     def markdown(self):
         if not self.url:
