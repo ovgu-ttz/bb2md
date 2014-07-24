@@ -76,10 +76,7 @@ class BaseNode(object):
         for child in self._children:
             if isinstance(child, str):
                 # Escape markdown control sequences
-                print(child)
-                child = child.replace("*", "\\*")
-                if len(re.findall(r'^\[.*\]\(.*\)$', child)) == 0:
-                    child.replace("_", "\\_").replace("·", "*").replace("-", "\-")
+                child = child.replace("*", "\\*").replace("_", "\\_").replace("·", "*").replace("-", "\-")
 
                 # Fold windows line endings together
                 child = child.replace("\r\n", "\n").replace("\r", "\n")
