@@ -4,9 +4,11 @@
 
 """
 from collections import defaultdict
+import logging
 import re
 from math import ceil
 import requests
+from urllib.parse import urlparse
 
 __author__ = 'Martin Martimeo <martin@martimeo.de>'
 __date__ = '02.07.14 - 17:04'
@@ -107,18 +109,25 @@ class FontNode(BaseNode):
 class LinkNode(BaseNode):
     tag = "url"
 
-    @property
-    def url(self):
-        if len(self._args) >= 1:
+    def check(self, values):
+        for value in values:
             try:
-                request = requests.get(self._args[0])
-                return request.status_code < 400 or request.status_code == 401 and self._args[0] or None
+                url = urlparse(value)
+                request = requests.get(url.scheme != '' and url.geturl() or "http://%s" % value)
+                if request.status_code < 400 or request.status_code == 401:
+                    return value
             except Exception as ex:
                 pass
 
+    @property
+    def url(self):
+        if len(self._args) >= 1:
+            return self.check([self._args[0], super().markdown()])
+
+
     def markdown(self):
         if not self.url:
-            return "[%s]" % super().markdown()
+            return "%s" % super().markdown()
         else:
             return "[%s](%s)" % (super().markdown(), self.url)
 
