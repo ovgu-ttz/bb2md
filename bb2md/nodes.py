@@ -322,7 +322,7 @@ class TdNode(BaseNode):
 
     @property
     def colspan(self):
-        if len(self._args) >= 4:
+        if len(self._args) >= 3:
             return int(self._args[2]) or 1
         else:
             return 1
