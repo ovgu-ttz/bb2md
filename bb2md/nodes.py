@@ -71,7 +71,6 @@ class BaseNode(object):
         if cls.full_match:
             return cls.tag == text.strip()
         else:
-            print(text, type(text))
             return text.startswith(cls.tag)
 
     def markdown(self):
@@ -345,3 +344,6 @@ class TdNode(BaseNode):
 
 class LicenceNode(BaseNode):
     tag = "licenceimage"
+
+    def markdown(self):
+        return "![Licence Image](/static/gfx/%s)" % (super().markdown())
