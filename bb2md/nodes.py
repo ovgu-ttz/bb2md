@@ -69,6 +69,7 @@ class BaseNode(object):
         if cls.full_match:
             return cls.tag == text.strip()
         else:
+            print(text, type(text))
             return text.startswith(cls.tag)
 
     def markdown(self):
@@ -331,3 +332,7 @@ class TdNode(BaseNode):
             return float(self._args[0].rstrip("pxcm%")) or 1
         else:
             return 1
+
+
+class LicenceNode(BaseNode):
+    tag = "licenceimage"
