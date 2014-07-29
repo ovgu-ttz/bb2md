@@ -337,7 +337,7 @@ class TdNode(BaseNode):
     @property
     def width(self):
         if len(self._args) >= 1:
-            return float(self._args[0].rstrip("pxcm%")) or 1
+            return self._args[0].rstrip("pxcm%") != '' and float(self._args[0].rstrip("pxcm%")) or 1
         else:
             return 1
 
