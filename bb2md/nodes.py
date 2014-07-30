@@ -296,7 +296,7 @@ class TableNode(BaseNode):
                 rtn += "|"
                 for itd, width in widths.items():
                     if not (itr, itd) in nm:
-                        line = ""
+                        line = "&#8203;"
                     elif len(nm[itr, itd]) > iline:
                         line = nm[itr, itd][iline]
                     else:
@@ -323,7 +323,8 @@ class TdNode(BaseNode):
     @property
     def colspan(self):
         if len(self._args) >= 3:
-            return int(self._args[2]) or 1
+            value = int(self._args[2]) or 1
+            return value
         else:
             return 1
 
