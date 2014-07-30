@@ -253,6 +253,7 @@ class TableNode(BaseNode):
 
         # Convert all elements
         nm = {}
+        colspans = {}
         widths = defaultdict(int)
         user_widths = defaultdict(int)
 
@@ -261,6 +262,8 @@ class TableNode(BaseNode):
             icol = 0
             for itd, td in enumerate(tr._children):
                 nm[itr, icol] = td.markdown().split("\n")
+                if td.colspan > 1:
+                    colspans[itr, icol] = td.colspan
 
                 # Calc widths based on input
                 widths[icol] = max(widths[icol], max(len(line) for line in nm[itr, icol]), 1)
@@ -296,7 +299,7 @@ class TableNode(BaseNode):
                 rtn += "|"
                 for itd, width in widths.items():
                     if not (itr, itd) in nm:
-                        line = "&#8203;"
+                        line = not (itr, itd) in colspans and "" or "&#8203;"
                     elif len(nm[itr, itd]) > iline:
                         line = nm[itr, itd][iline]
                     else:
