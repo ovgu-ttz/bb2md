@@ -263,7 +263,7 @@ class TableNode(BaseNode):
             for itd, td in enumerate(tr._children):
                 nm[itr, icol] = td.markdown().split("\n")
                 if td.colspan > 1:
-                    colspans[itr, icol] = td.colspan
+                    colspans[itr, itd] = td.colspan
 
                 # Calc widths based on input
                 widths[icol] = max(widths[icol], max(len(line) for line in nm[itr, icol]), 1)
