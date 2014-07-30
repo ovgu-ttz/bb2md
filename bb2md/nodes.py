@@ -263,7 +263,8 @@ class TableNode(BaseNode):
             for itd, td in enumerate(tr._children):
                 nm[itr, icol] = td.markdown().split("\n")
                 if td.colspan > 1:
-                    colspans[itr, itd] = td.colspan
+                    print("mark for colspan")
+                    colspans[itr, itd + 1] = td.colspan
 
                 # Calc widths based on input
                 widths[icol] = max(widths[icol], max(len(line) for line in nm[itr, icol]), 1)
@@ -295,11 +296,15 @@ class TableNode(BaseNode):
 
         rtn += print_separation()
         for itr, height in heights.items():
+            coltest = True
             for iline in range(0, height):
                 rtn += "|"
                 for itd, width in widths.items():
                     if not (itr, itd) in nm:
-                        line = not (itr, itd) in colspans and "" or "&#8203;"
+                        line = ""
+                        if (itr, itd) in colspans and coltest:
+                            coltest = False
+                            line = "&#8203;"
                     elif len(nm[itr, itd]) > iline:
                         line = nm[itr, itd][iline]
                     else:
