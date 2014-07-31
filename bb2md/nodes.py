@@ -115,7 +115,7 @@ class LinkNode(BaseNode):
                 url = urlparse(value)
                 request = requests.get(url.scheme != '' and url.geturl() or "http://%s" % value)
                 if request.status_code < 400 or request.status_code == 401:
-                    return value
+                    return url.scheme != '' and url.geturl() or "http://%s" % value
             except Exception as ex:
                 pass
 
