@@ -355,3 +355,10 @@ class LicenceNode(BaseNode):
 
     def markdown(self):
         return "![Licence Image](/static/gfx/%s)" % (super().markdown())
+
+
+class SubNode(BaseNode):
+    tag = "sub"
+
+class SupNode(BaseNode):
+    tag = "sup"

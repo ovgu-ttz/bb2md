@@ -15,7 +15,7 @@ from .nodes import *
 
 class Bb2MdConverter(object):
     types = {ListNode, LiNode, BlockNode, LinkNode, TableNode, TrNode, TdNode, FontNode, FontSizeNode, BoldNode,
-             ItalicNode, ColorNode, UnderlineNode, LicenceNode}
+             ItalicNode, ColorNode, UnderlineNode, LicenceNode, SubNode, SupNode}
 
     #!: Soft Fail on bbcode tags, something like [Ministerpräsident] won't fail if this is true
     soft_failing = True
